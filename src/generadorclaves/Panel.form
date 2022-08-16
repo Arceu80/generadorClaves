@@ -187,8 +187,14 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTnumeros">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTnumerosKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTletras">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTletrasKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTclave">
           <Properties>

@@ -20,6 +20,7 @@ public class Panel extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        this.setTitle("Generador de Claves");
     }
 
     /**
@@ -66,6 +67,18 @@ public class Panel extends javax.swing.JFrame {
         jBgenerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBgenerarActionPerformed(evt);
+            }
+        });
+
+        jTnumeros.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTnumerosKeyReleased(evt);
+            }
+        });
+
+        jTletras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTletrasKeyReleased(evt);
             }
         });
 
@@ -178,29 +191,86 @@ public class Panel extends javax.swing.JFrame {
         jTnumeros.setText("");
         jTletras.setText("");
         jTclave.setText("");
+
+        if (!jTletras.isEnabled() || !jTnumeros.isEnabled()) {
+            jTletras.setEnabled(true);
+            jTnumeros.setEnabled(true);
+        }
     }//GEN-LAST:event_jBlimpiarActionPerformed
 
     private void jBgenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBgenerarActionPerformed
-        
-        String numeros, letras;
-        int digitos;
-        
+
+        String resultado = "";
+        int digitos, numeros, letras;
+        char letra;
+
         try {
-            digitos=Integer.parseInt(jTdigitos.getText());
-                    
-        
-        numeros=jTnumeros.getText();
-        letras=jTletras.getText();
-        
-        jTclave.setText(digitos+" "+numeros+" "+letras);
-        
+            digitos = Integer.parseInt(jTdigitos.getText());
+            numeros = Integer.parseInt(jTnumeros.getText());
+            letras = Integer.parseInt(jTletras.getText());
+
+            String[] clave = new String[digitos];
+
+            if (numeros == 0) {
+                //System.out.print((char)aleatorio(65,90));
+                for (int i = 0; i < clave.length; i++) {
+                    letra = (char) aleatorio(65, 90);
+                    clave[i] = String.valueOf(letra);
+                }
+            }
+            else if(letras==0){
+                for (int i = 0; i < clave.length; i++) {
+                    clave[i] = String.valueOf(aleatorio(0, 9));
+                }
+            }
+
+            //jTclave.setText(digitos + ", " + numeros + ", " + letras);
+            for (int i = 0; i < clave.length; i++) {
+                resultado += clave[i];
+            }
+            jTclave.setText(resultado);
+
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error, no es un numero de digitos correctos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error, el valor introducido no es un numero", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        
+
     }//GEN-LAST:event_jBgenerarActionPerformed
 
+    private void jTnumerosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnumerosKeyReleased
+        if (Integer.parseInt(jTnumeros.getText()) == 0) {
+            jTletras.setEnabled(false);
+            jTletras.setText(jTdigitos.getText());
+        } else {
+            jTletras.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTnumerosKeyReleased
+
+    private void jTletrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTletrasKeyReleased
+        if (Integer.parseInt(jTletras.getText()) == 0) {
+            jTnumeros.setEnabled(false);
+            jTnumeros.setText(jTdigitos.getText());
+        } else {
+            jTnumeros.setEnabled(true);
+        }
+    }//GEN-LAST:event_jTletrasKeyReleased
+
+    public int aleatorio(int min, int max) {
+        double alea;
+        int alea2;
+
+        alea = Math.random();
+
+        alea *= max - min + 1;
+
+        alea += min;
+
+        alea = Math.floor(alea);
+
+        alea2 = (int) alea;
+
+        return alea2;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBgenerar;
