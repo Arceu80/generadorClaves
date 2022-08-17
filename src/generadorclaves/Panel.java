@@ -203,6 +203,7 @@ public class Panel extends javax.swing.JFrame {
         String resultado = "";
         int digitos, numeros, letras;
         char letra;
+        String minuscula;
 
         try {
             digitos = Integer.parseInt(jTdigitos.getText());
@@ -215,19 +216,72 @@ public class Panel extends javax.swing.JFrame {
                 //System.out.print((char)aleatorio(65,90));
                 for (int i = 0; i < clave.length; i++) {
                     letra = (char) aleatorio(65, 90);
-                    clave[i] = String.valueOf(letra);
+                    if (aleatorio(0, 1) == 0) {
+                        minuscula = String.valueOf(letra);
+                        clave[i] = minuscula.toLowerCase();
+                    } else {
+                        clave[i] = String.valueOf(letra);
+                    }
+
                 }
-            }
-            else if(letras==0){
+            } else if (letras == 0) {
                 for (int i = 0; i < clave.length; i++) {
                     clave[i] = String.valueOf(aleatorio(0, 9));
                 }
+            } else {
+
+                int[] num = new int[numeros];
+                char[] ch = new char[letras];
+
+                for (int i = 0; i < num.length; i++) {
+                    num[i] = aleatorio(0, 9);
+                }
+
+                for (int i = 0; i < ch.length; i++) {
+                    ch[i] = (char) aleatorio(65, 90);
+                }
+
+                for (int i = 0; i < clave.length; i++) {
+
+                    int cntn = 0;
+                    int cntl = 0;
+
+                    if ((cntn < num.length)) {
+                        if (aleatorio(0, 1) == 0) {
+                            clave[i] = String.valueOf(num[cntn]);
+                            cntn++;
+                        } else {
+                            clave[i] = String.valueOf(ch[cntl]);
+                            cntl++;
+                        }
+                    } else if (cntn == num.length) {
+                        clave[i] = String.valueOf(ch[cntl]);
+                        cntl++;
+                    }
+
+                }
+/*
+                for (int i = 0; i < clave.length; i++) {
+                    if (aleatorio(0, 1) == 0) {
+                        letra = (char) aleatorio(65, 90);
+                        if (aleatorio(0, 1) == 0) {
+                            minuscula = String.valueOf(letra);
+                            clave[i] = minuscula.toLowerCase();
+                        } else {
+                            clave[i] = String.valueOf(letra);
+                        }
+                    } else {
+                        clave[i] = String.valueOf(aleatorio(0, 9));
+                    }
+
+                }*/
             }
 
             //jTclave.setText(digitos + ", " + numeros + ", " + letras);
             for (int i = 0; i < clave.length; i++) {
                 resultado += clave[i];
             }
+            System.out.println(resultado);
             jTclave.setText(resultado);
 
         } catch (NumberFormatException e) {
@@ -238,21 +292,37 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jBgenerarActionPerformed
 
     private void jTnumerosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTnumerosKeyReleased
-        if (Integer.parseInt(jTnumeros.getText()) == 0) {
-            jTletras.setEnabled(false);
-            jTletras.setText(jTdigitos.getText());
+        if (!jTnumeros.getText().equalsIgnoreCase("")) {
+            if (Integer.parseInt(jTnumeros.getText()) == 0) {
+                jTletras.setEnabled(false);
+                jTletras.setText(jTdigitos.getText());
+            } else if (Integer.parseInt(jTnumeros.getText()) > 0) {
+                jTletras.setText(String.valueOf(Integer.parseInt(jTdigitos.getText()) - Integer.parseInt(jTnumeros.getText())));
+            } else {
+                jTletras.setEnabled(true);
+            }
         } else {
+            jTletras.setText("");
             jTletras.setEnabled(true);
         }
+
     }//GEN-LAST:event_jTnumerosKeyReleased
 
     private void jTletrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTletrasKeyReleased
-        if (Integer.parseInt(jTletras.getText()) == 0) {
-            jTnumeros.setEnabled(false);
-            jTnumeros.setText(jTdigitos.getText());
+        if (!jTletras.getText().equalsIgnoreCase("")) {
+            if (Integer.parseInt(jTletras.getText()) == 0) {
+                jTnumeros.setEnabled(false);
+                jTnumeros.setText(jTdigitos.getText());
+            } else if (Integer.parseInt(jTletras.getText()) > 0) {
+                jTnumeros.setText(String.valueOf(Integer.parseInt(jTdigitos.getText()) - Integer.parseInt(jTletras.getText())));
+            } else {
+                jTnumeros.setEnabled(true);
+            }
         } else {
+            jTnumeros.setText("");
             jTnumeros.setEnabled(true);
         }
+
     }//GEN-LAST:event_jTletrasKeyReleased
 
     public int aleatorio(int min, int max) {
