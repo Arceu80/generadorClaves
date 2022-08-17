@@ -5,6 +5,9 @@
  */
 package generadorclaves;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +24,7 @@ public class Panel extends javax.swing.JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setTitle("Generador de Claves");
+        jLAdvertencia.setVisible(false);
     }
 
     /**
@@ -44,6 +48,7 @@ public class Panel extends javax.swing.JFrame {
         jTclave = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jBlimpiar = new javax.swing.JButton();
+        jLAdvertencia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,6 +67,12 @@ public class Panel extends javax.swing.JFrame {
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Número de Letras:");
+
+        jTdigitos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTdigitosKeyReleased(evt);
+            }
+        });
 
         jBgenerar.setText("Generar");
         jBgenerar.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +110,9 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
+        jLAdvertencia.setForeground(new java.awt.Color(255, 51, 0));
+        jLAdvertencia.setText("El tamaño máximo de la clave es de 10 digitos");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,18 +130,22 @@ public class Panel extends javax.swing.JFrame {
                                 .addGap(52, 52, 52)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTdigitos, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTnumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(36, 36, 36)
-                                        .addComponent(jTclave, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(162, 162, 162)
                                         .addComponent(jBlimpiar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jBgenerar)
                                         .addGap(27, 27, 27))
-                                    .addComponent(jTletras, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTdigitos, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTnumeros, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTletras, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(36, 36, 36)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addComponent(jLAdvertencia))
+                                            .addComponent(jTclave, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(152, 152, 152)
                                 .addComponent(jLabel1)))
@@ -157,19 +175,24 @@ public class Panel extends javax.swing.JFrame {
                         .addComponent(jTclave, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jTletras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jTletras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLAdvertencia)))
                         .addGap(44, 44, 44)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBgenerar)
                             .addComponent(jBlimpiar))
-                        .addContainerGap(100, Short.MAX_VALUE))
+                        .addGap(0, 94, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addContainerGap())))
+                        .addComponent(jLabel5)))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -241,26 +264,29 @@ public class Panel extends javax.swing.JFrame {
                     ch[i] = (char) aleatorio(65, 90);
                 }
 
-                for (int i = 0; i < clave.length; i++) {
+                ArrayList<String> inter = new ArrayList();
 
-                    int cntn = 0;
-                    int cntl = 0;
+                for (int i = 0; i < num.length; i++) {
+                    inter.add(String.valueOf(num[i]));
+                }
 
-                    if ((cntn < num.length)) {
-                        if (aleatorio(0, 1) == 0) {
-                            clave[i] = String.valueOf(num[cntn]);
-                            cntn++;
-                        } else {
-                            clave[i] = String.valueOf(ch[cntl]);
-                            cntl++;
-                        }
-                    } else if (cntn == num.length) {
-                        clave[i] = String.valueOf(ch[cntl]);
-                        cntl++;
+                for (int i = 0; i < ch.length; i++) {
+
+                    if (aleatorio(0, 1) == 0) {
+                        inter.add(String.valueOf(ch[i]));
+                    } else {
+                        inter.add(String.valueOf(ch[i]).toLowerCase());
                     }
 
                 }
-/*
+
+                Collections.shuffle(inter);
+
+                for (int i = 0; i < inter.size(); i++) {
+                    clave[i] = inter.get(i);
+                }
+
+                /*
                 for (int i = 0; i < clave.length; i++) {
                     if (aleatorio(0, 1) == 0) {
                         letra = (char) aleatorio(65, 90);
@@ -325,6 +351,19 @@ public class Panel extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTletrasKeyReleased
 
+    private void jTdigitosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTdigitosKeyReleased
+        if (!jTdigitos.getText().equalsIgnoreCase("")) {
+            if (Integer.parseInt(jTdigitos.getText()) > 10) {
+                jLAdvertencia.setVisible(true);
+                jBgenerar.setEnabled(false);
+            } else {
+                jLAdvertencia.setVisible(false);
+                jBgenerar.setEnabled(true);
+            }
+        }
+
+    }//GEN-LAST:event_jTdigitosKeyReleased
+
     public int aleatorio(int min, int max) {
         double alea;
         int alea2;
@@ -345,6 +384,7 @@ public class Panel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBgenerar;
     private javax.swing.JButton jBlimpiar;
+    private javax.swing.JLabel jLAdvertencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
