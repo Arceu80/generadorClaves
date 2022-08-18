@@ -49,7 +49,7 @@ public class Panel extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setTitle("Generador de Claves v1.5");
+        this.setTitle("Generador de Claves v1.51");
         jLAdvertencia.setVisible(false);
 
         File fichero = new File("src/datos/claves.txt");
@@ -90,6 +90,11 @@ public class Panel extends javax.swing.JFrame {
         jBborrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 204));
 
@@ -492,6 +497,10 @@ public class Panel extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jBborrarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        guardaFichero(ruta);
+    }//GEN-LAST:event_formWindowClosing
 
     public int aleatorio(int min, int max) {
         double alea;
