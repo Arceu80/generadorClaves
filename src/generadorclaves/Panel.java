@@ -17,8 +17,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -62,9 +65,11 @@ public class Panel extends javax.swing.JFrame {
             public void keyReleased(KeyEvent e) {
                 DefaultTableModel dtm = (DefaultTableModel) tablaClaves.getModel();
                 super.keyReleased(e);
-                
-                cargarDatosRaideos((int) dtm.getValueAt(tablaClaves.getSelectedRow(), 0));
-                
+
+                int id = (int) dtm.getValueAt(tablaClaves.getSelectedRow(), 0);
+
+                jTclavetribu.setText(mapaclaves.get(id));
+
             }
 
         });
@@ -116,7 +121,9 @@ public class Panel extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTAjugadores = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        jTclavetribu = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -298,40 +305,61 @@ public class Panel extends javax.swing.JFrame {
         jLabel10.setText("Base Raideo");
 
         jBguardarDatos.setText("Guardar");
+        jBguardarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBguardarDatosActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Jugadores");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        jTAjugadores.setColumns(20);
+        jTAjugadores.setRows(5);
+        jScrollPane3.setViewportView(jTAjugadores);
+
+        jLabel6.setText("Clave");
+
+        jTclavetribu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jTclavetribu.setForeground(new java.awt.Color(0, 0, 0));
+        jTclavetribu.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTclavetribu.setEnabled(false);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
-                            .addComponent(jLabel9))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                            .addComponent(jLabel9)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6)
+                                .addGap(64, 64, 64))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBguardarDatos)
-                                .addGap(101, 101, 101))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTtribu, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTbase, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel11))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jTclavetribu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(9, 9, 9)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jTbase, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                            .addComponent(jTtribu))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addComponent(jBguardarDatos)
+                .addGap(0, 120, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,19 +368,21 @@ public class Panel extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jTtribu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTbase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 116, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTbase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTclavetribu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBguardarDatos)
@@ -615,6 +645,31 @@ public class Panel extends javax.swing.JFrame {
         guardaFichero(ruta);
     }//GEN-LAST:event_formWindowClosing
 
+    private void jBguardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarDatosActionPerformed
+        if (!jTtribu.getText().equalsIgnoreCase("") && !jTbase.getText().equalsIgnoreCase("") && !jTAjugadores.getText().equalsIgnoreCase("") /*&& jTclavetribu.getText().equalsIgnoreCase("")*/) {
+           DefaultTableModel dtm = (DefaultTableModel) tablaClaves.getModel();
+            int idclave = (int) dtm.getValueAt(tablaClaves.getSelectedRow(), 0);
+            String tribu = jTtribu.getText();
+            String base = jTbase.getText();
+            SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy");
+            Calendar calendar = Calendar.getInstance();
+            Date dateObj = calendar.getTime();
+            String formattedDate = dtf.format(dateObj);
+            
+            Raideo raid=new Raideo(idclave, formattedDate, base, tribu);
+            String [] jugadores=jTAjugadores.getText().split(",");
+            
+            for (String jugadore : jugadores) {
+                raid.anyadirjugador(jugadore);
+            }
+            
+            mapaRaideo.put(mapaRaideo.size()+1, raid);
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Faltan Datos en alguno de los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jBguardarDatosActionPerformed
+
     public int aleatorio(int min, int max) {
         double alea;
         int alea2;
@@ -747,10 +802,6 @@ public class Panel extends javax.swing.JFrame {
         return "";
     }
 
-    public void cargarDatosRaideos(int id){
-        
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBborrar;
     private javax.swing.JButton jBgenerar;
@@ -765,6 +816,7 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -773,12 +825,13 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextArea jTAjugadores;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTbase;
     private javax.swing.JTextField jTclave;
+    private javax.swing.JTextField jTclavetribu;
     private javax.swing.JTextField jTdigitos;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTletras;
     private javax.swing.JTextField jTnumeros;
     private javax.swing.JTextField jTtribu;

@@ -5,31 +5,30 @@
  */
 package generadorclaves;
 
+import java.util.HashMap;
+
 /**
  *
  * @author Francisco
  */
 public class Raideo {
     
-    private int id;
-    
     private int idclave;
-    
-    private String clave;
     
     private String fecha;
     
     private String tribu;
     
     private String base;
+    
+    private HashMap<Integer, String> jugadores;
 
-    public Raideo(int id, int idclave, String clave, String fecha, String tribu, String base) {
-        this.id = id;
+    public Raideo(int idclave, String fecha, String tribu, String base) {
         this.idclave = idclave;
-        this.clave = clave;
         this.fecha = fecha;
         this.tribu = tribu;
         this.base = base;
+        jugadores=new HashMap();
     }
 
     public int getIdclave() {
@@ -39,23 +38,7 @@ public class Raideo {
     public void setIdclave(int idclave) {
         this.idclave = idclave;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getClave() {
-        return clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
+    
     public String getFecha() {
         return fecha;
     }
@@ -79,10 +62,16 @@ public class Raideo {
     public void setBase(String base) {
         this.base = base;
     }
+    
+    public void anyadirjugador(String j){
+        jugadores.put(jugadores.size()+1, j);
+    }
 
     @Override
     public String toString() {
-        return "Raideo{" + "id=" + id + ", idclave=" + idclave + ", clave=" + clave + ", fecha=" + fecha + ", tribu=" + tribu + ", base=" + base + '}';
+        return "Raideo{" + "idclave=" + idclave + ", fecha=" + fecha + ", tribu=" + tribu + ", base=" + base + ", jugadores=" + jugadores + '}';
     }
+
+
     
 }
