@@ -62,6 +62,10 @@ public class Raideo {
     public void setBase(String base) {
         this.base = base;
     }
+
+    public HashMap<Integer, String> getJugadores() {
+        return jugadores;
+    }
     
     public void anyadirjugador(String j){
         jugadores.put(jugadores.size()+1, j);

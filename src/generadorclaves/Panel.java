@@ -45,7 +45,7 @@ public class Panel extends javax.swing.JFrame {
     HashMap<Integer, String> mapaclaves = new HashMap();
     HashMap<Integer, Raideo> mapaRaideo = new HashMap();
     String rutaClaves = "src/datos/claves.txt";
-    String rutaRaideos= "src/datos/raideos.txt";
+    String rutaRaideos = "src/datos/raideos.txt";
 
     public Panel() {
         initComponents();
@@ -58,8 +58,12 @@ public class Panel extends javax.swing.JFrame {
         File ficheroRaideos = new File(rutaRaideos);
 
         if (ficheroClaves.exists()) {
-            cargaDatos(rutaClaves);
+            cargaDatos(rutaClaves, 0);
             tablaClaves = creaTabla(jScrollPane1);
+        }
+        if (ficheroRaideos.exists()) {
+            cargaDatos(rutaRaideos, 1);
+            //tablaClaves = creaTabla(jScrollPane1);
         }
 
         tablaClaves.addKeyListener(new KeyAdapter() {
@@ -644,12 +648,13 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jBborrarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        //guardaFichero(rutaClaves);
+        guardaFichero(rutaClaves, 0);
+        guardaFichero(rutaRaideos, 1);
     }//GEN-LAST:event_formWindowClosing
 
     private void jBguardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarDatosActionPerformed
         if (!jTtribu.getText().equalsIgnoreCase("") && !jTbase.getText().equalsIgnoreCase("") && !jTAjugadores.getText().equalsIgnoreCase("") /*&& jTclavetribu.getText().equalsIgnoreCase("")*/) {
-           DefaultTableModel dtm = (DefaultTableModel) tablaClaves.getModel();
+            DefaultTableModel dtm = (DefaultTableModel) tablaClaves.getModel();
             int idclave = (int) dtm.getValueAt(tablaClaves.getSelectedRow(), 0);
             String tribu = jTtribu.getText();
             String base = jTbase.getText();
@@ -657,16 +662,18 @@ public class Panel extends javax.swing.JFrame {
             Calendar calendar = Calendar.getInstance();
             Date dateObj = calendar.getTime();
             String formattedDate = dtf.format(dateObj);
-            
-            Raideo raid=new Raideo(idclave, formattedDate, base, tribu);
-            String [] jugadores=jTAjugadores.getText().split(",");
-            
+
+            Raideo raid = new Raideo(idclave, formattedDate, base, tribu);
+            String[] jugadores = jTAjugadores.getText().split(",");
+
             for (String jugadore : jugadores) {
                 raid.anyadirjugador(jugadore);
             }
-            
-            mapaRaideo.put(mapaRaideo.size()+1, raid);
-            
+
+            mapaRaideo.put(mapaRaideo.size() + 1, raid);
+
+            JOptionPane.showMessageDialog(this, "Datos Insertados Correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+
         } else {
             JOptionPane.showMessageDialog(this, "Faltan Datos en alguno de los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -746,7 +753,7 @@ public class Panel extends javax.swing.JFrame {
 
     }
 
-    void cargaDatos(String ruta) {
+    void cargaDatos(String ruta, int num) {
 
         BufferedReader bf = null;
 
@@ -754,17 +761,39 @@ public class Panel extends javax.swing.JFrame {
 
             bf = new BufferedReader(new FileReader(new File(ruta)));
 
-            String linea, clave;
-            String[] datos;
+            String linea, clave, fecha, base, tribu;
+            String[] datos, jugadores, jugador;
+            int id, idclave;
 
-            while ((linea = bf.readLine()) != null) {
-                datos = linea.split(";");
-                int id = Integer.parseInt(datos[0]);
-                clave = datos[1];
+            if (num == 0) {
+                while ((linea = bf.readLine()) != null) {
+                    datos = linea.split(";");
+                    id = Integer.parseInt(datos[0]);
+                    clave = datos[1];
 
-                mapaclaves.put(id, clave);
+                    mapaclaves.put(id, clave);
+                }
+            } else if (num == 1) {
+                while ((linea = bf.readLine()) != null) {
+                    datos = linea.split(";");
+                    id = Integer.parseInt(datos[0]);
+                    idclave = id = Integer.parseInt(datos[1]);
+                    fecha = datos[2];
+                    base = datos[3];
+                    tribu = datos[4];
+                    jugadores = datos[5].split("-");
 
+                    Raideo raid = new Raideo(idclave, fecha, tribu, base);
+
+                    for (int i = 0; i < jugadores.length; i++) {
+                        jugador = jugadores[i].split(":");
+                        raid.anyadirjugador(jugador[1]);
+                    }
+                    mapaRaideo.put(id, raid);
+                    System.out.println(raid);
+                }
             }
+
         } catch (FileNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "Error cargando los actores\n\tFichero no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IOException ex) {
@@ -778,18 +807,40 @@ public class Panel extends javax.swing.JFrame {
         }
     }
 
-    public void guardaFichero(String ruta, HashMap<Integer, Object> mapa) {
+    public void guardaFichero(String ruta, int num) {
         File file = new File(ruta);
         PrintWriter fichero;
         String listado = "";
+        String jugadores = "";
 
-        for (Map.Entry<Integer, String> entry : mapaclaves.entrySet()) {
-            Integer key = entry.getKey();
-            String val = entry.getValue();
+        if (num == 0) {
+            for (Map.Entry<Integer, String> entry : mapaclaves.entrySet()) {
+                Integer key = entry.getKey();
+                String val = entry.getValue();
 
-            listado += String.valueOf(key) + ";" + val + "\n";
+                listado += String.valueOf(key) + ";" + val + "\n";
 
+            }
+        } else if (num == 1) {
+            for (Map.Entry<Integer, Raideo> entry : mapaRaideo.entrySet()) {
+                Integer key = entry.getKey();
+                Raideo val = entry.getValue();
+
+                listado += String.valueOf(key) + ";" + val.getIdclave() + ";" + val.getFecha() + ";" + val.getTribu() + ";" + val.getBase() + ";";
+                jugadores = "";
+                for (Map.Entry<Integer, String> entry1 : val.getJugadores().entrySet()) {
+                    Integer key1 = entry1.getKey();
+                    String val1 = entry1.getValue();
+
+                    jugadores += String.valueOf(key1) + ":" + val1.trim() + "-";
+
+                }
+
+                listado += jugadores.substring(0, jugadores.length() - 1) + "\n";
+
+            }
         }
+
         try {
             fichero = new PrintWriter(new FileWriter(ruta));
 
@@ -799,7 +850,7 @@ public class Panel extends javax.swing.JFrame {
         } catch (IOException ex) {
             System.out.println("Error de E/S escribiendo en el fichero ...");
         }
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
