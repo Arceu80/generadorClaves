@@ -42,9 +42,10 @@ public class Panel extends javax.swing.JFrame {
      * Creates new form Panel
      */
     JTable tablaClaves;
-    TreeMap<Integer, String> mapaclaves = new TreeMap();
+    HashMap<Integer, String> mapaclaves = new HashMap();
     HashMap<Integer, Raideo> mapaRaideo = new HashMap();
-    String ruta = "src/datos/claves.txt";
+    String rutaClaves = "src/datos/claves.txt";
+    String rutaRaideos= "src/datos/raideos.txt";
 
     public Panel() {
         initComponents();
@@ -53,10 +54,11 @@ public class Panel extends javax.swing.JFrame {
         this.setTitle("Generador de Claves v1.6");
         jLAdvertencia.setVisible(false);
 
-        File fichero = new File("src/datos/claves.txt");
+        File ficheroClaves = new File(rutaClaves);
+        File ficheroRaideos = new File(rutaRaideos);
 
-        if (fichero.exists()) {
-            cargaDatos(ruta);
+        if (ficheroClaves.exists()) {
+            cargaDatos(rutaClaves);
             tablaClaves = creaTabla(jScrollPane1);
         }
 
@@ -616,10 +618,10 @@ public class Panel extends javax.swing.JFrame {
                 if (mapaclaves.containsValue(jTclave.getText())) {
                     JOptionPane.showMessageDialog(this, "Clave ya existente/guardada, genere otra", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    etiquetas[0] = mapaclaves.lastKey() + 1;
+                    etiquetas[0] = mapaclaves.size() + 1;
                     etiquetas[1] = jTclave.getText();
                     dtm.addRow(etiquetas);
-                    mapaclaves.put(mapaclaves.lastKey() + 1, jTclave.getText());
+                    mapaclaves.put(mapaclaves.size() + 1, jTclave.getText());
                 }
 
             }
@@ -642,7 +644,7 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jBborrarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        guardaFichero(ruta);
+        //guardaFichero(rutaClaves);
     }//GEN-LAST:event_formWindowClosing
 
     private void jBguardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBguardarDatosActionPerformed
@@ -776,7 +778,7 @@ public class Panel extends javax.swing.JFrame {
         }
     }
 
-    public String guardaFichero(String ruta) {
+    public void guardaFichero(String ruta, HashMap<Integer, Object> mapa) {
         File file = new File(ruta);
         PrintWriter fichero;
         String listado = "";
@@ -788,7 +790,6 @@ public class Panel extends javax.swing.JFrame {
             listado += String.valueOf(key) + ";" + val + "\n";
 
         }
-
         try {
             fichero = new PrintWriter(new FileWriter(ruta));
 
@@ -798,8 +799,7 @@ public class Panel extends javax.swing.JFrame {
         } catch (IOException ex) {
             System.out.println("Error de E/S escribiendo en el fichero ...");
         }
-
-        return "";
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
