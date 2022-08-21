@@ -42,6 +42,7 @@ public class Panel extends javax.swing.JFrame {
      * Creates new form Panel
      */
     JTable tablaClaves;
+    JTable tablaRaideos;
     HashMap<Integer, String> mapaclaves = new HashMap();
     HashMap<Integer, Raideo> mapaRaideo = new HashMap();
     String rutaClaves = "src/datos/claves.txt";
@@ -58,12 +59,20 @@ public class Panel extends javax.swing.JFrame {
         File ficheroRaideos = new File(rutaRaideos);
 
         if (ficheroClaves.exists()) {
+            Object[] etiquetas = new Object[2];
+            etiquetas[0] = "ID";
+            etiquetas[1] = "CLAVE";
             cargaDatos(rutaClaves, 0);
-            tablaClaves = creaTabla(jScrollPane1);
+            tablaClaves = creaTabla(jScrollPane1, etiquetas, 0);
         }
         if (ficheroRaideos.exists()) {
+            Object[] etiquetas = new Object[4];
+            etiquetas[0] = "ID";
+            etiquetas[1] = "TRIBU";
+            etiquetas[2] = "NIVEL";
+            etiquetas[3] = "FECHA";
             cargaDatos(rutaRaideos, 1);
-            //tablaClaves = creaTabla(jScrollPane1);
+            tablaRaideos = creaTabla(jScrollRaideos, etiquetas, 1);
         }
 
         tablaClaves.addKeyListener(new KeyAdapter() {
@@ -131,6 +140,18 @@ public class Panel extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTclavetribu = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
+        jScrollRaideos = new javax.swing.JScrollPane();
+        jTabbedPane3 = new javax.swing.JTabbedPane();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jTtribu1 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTbase1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTAjugadores1 = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        jTclavetribu1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -397,19 +418,6 @@ public class Panel extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Tribu", jPanel3);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jTabbedPane2.addTab("Raideos", jPanel4);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -439,6 +447,104 @@ public class Panel extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Almacenamiento", jPanel2);
+
+        jLabel12.setText("Tribu");
+
+        jLabel13.setText("Base Raideo");
+
+        jLabel14.setText("Jugadores");
+
+        jTAjugadores1.setColumns(20);
+        jTAjugadores1.setRows(5);
+        jScrollPane4.setViewportView(jTAjugadores1);
+
+        jLabel7.setText("Clave");
+
+        jTclavetribu1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jTclavetribu1.setForeground(new java.awt.Color(0, 0, 0));
+        jTclavetribu1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTclavetribu1.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel7)
+                                .addGap(64, 64, 64))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(jLabel14))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jTclavetribu1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(9, 9, 9)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jTbase1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                            .addComponent(jTtribu1))))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTtribu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTbase1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTclavetribu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                .addGap(68, 68, 68))
+        );
+
+        jTabbedPane3.addTab("Tribu", jPanel5);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollRaideos, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollRaideos, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Raideos", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -696,16 +802,13 @@ public class Panel extends javax.swing.JFrame {
         return alea2;
     }
 
-    public JTable creaTabla(JScrollPane jScrol_Tabla) {
+    public JTable creaTabla(JScrollPane jScrol_Tabla, Object[] etiquetas, int num) {
 
         DefaultTableModel dtm;
         JTable tabla = null;
 
         //4.- Procesar el resultado de la consulta.......
         //4.1.- crear el array de la etiquetas....
-        Object[] etiquetas = new Object[2];
-        etiquetas[0] = "ID";
-        etiquetas[1] = "CLAVE";
         //Creamos el modelo de la tabla........................
         dtm = new DefaultTableModel(etiquetas, 0);
         //Creamos la tabla con el modelo........................
@@ -727,14 +830,32 @@ public class Panel extends javax.swing.JFrame {
         dtm.addRow(etiquetas);
         }*/
 
-        int cnt = 1;
+ /*int cnt = 1;
         for (String value : mapaclaves.values()) {
 
             etiquetas[0] = cnt;
             etiquetas[1] = value;
             cnt++;
             dtm.addRow(etiquetas);
+        }*/
+        if (num == 0) {
+            for (Map.Entry<Integer, String> entry : mapaclaves.entrySet()) {
+                etiquetas[0] = entry.getKey();
+                etiquetas[1] = entry.getValue();
+                dtm.addRow(etiquetas);
+
+            }
+        } else if (num == 1) {
+            for (Map.Entry<Integer, Raideo> entry : mapaRaideo.entrySet()) {
+                etiquetas[0] = entry.getKey();
+                etiquetas[1] = entry.getValue().getTribu();
+                etiquetas[2] = entry.getValue().getBase();
+                etiquetas[3] = entry.getValue().getFecha();
+                dtm.addRow(etiquetas);
+
+            }
         }
+
         // Cambiar el CellRenderer......................
         //TableColumn estreno = tabla.getColumnModel().getColumn(4);
         //estreno.setCellRenderer(tabla.getDefaultRenderer(Boolean.class));
@@ -863,28 +984,40 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollRaideos;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTAjugadores;
+    private javax.swing.JTextArea jTAjugadores1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTextField jTbase;
+    private javax.swing.JTextField jTbase1;
     private javax.swing.JTextField jTclave;
     private javax.swing.JTextField jTclavetribu;
+    private javax.swing.JTextField jTclavetribu1;
     private javax.swing.JTextField jTdigitos;
     private javax.swing.JTextField jTletras;
     private javax.swing.JTextField jTnumeros;
     private javax.swing.JTextField jTtribu;
+    private javax.swing.JTextField jTtribu1;
     // End of variables declaration//GEN-END:variables
 }
