@@ -73,6 +73,15 @@ public class Panel extends javax.swing.JFrame {
             etiquetas[3] = "FECHA";
             cargaDatos(rutaRaideos, 1);
             tablaRaideos = creaTabla(jScrollRaideos, etiquetas, 1);
+        } else {
+            DefaultTableModel dtm;
+            Object[] etiquetas = new Object[4];
+            etiquetas[0] = "ID";
+            etiquetas[1] = "TRIBU";
+            etiquetas[2] = "NIVEL";
+            etiquetas[3] = "FECHA";
+            dtm = new DefaultTableModel(etiquetas, 0);
+            tablaRaideos = new JTable(dtm);
         }
 
         tablaClaves.addKeyListener(new KeyAdapter() {
@@ -94,6 +103,35 @@ public class Panel extends javax.swing.JFrame {
             public void mouseClicked(MouseEvent e) {
                 KeyEvent ke = new KeyEvent(tablaClaves, KeyEvent.KEY_RELEASED, 1, 0, KeyEvent.VK_UNDEFINED, 'a');
                 tablaClaves.dispatchEvent(ke);
+            }
+        });
+
+        tablaRaideos.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                DefaultTableModel dtm = (DefaultTableModel) tablaRaideos.getModel();
+                super.keyReleased(e);
+
+                int id = (int) dtm.getValueAt(tablaRaideos.getSelectedRow(), 0);
+
+                jTclavetribuRaid.setText(mapaclaves.get(mapaRaideo.get(id).getIdclave()));
+                jTtribuRaid.setText(mapaRaideo.get(id).getTribu());
+                jTbaseRaid.setText(mapaRaideo.get(id).getBase());;
+                String jugadores = "";
+                for (String value : mapaRaideo.get(id).getJugadores().values()) {
+                    jugadores += value + ", ";
+                }
+                jTAjugadoresRaid.setText(jugadores.substring(0, jugadores.length() - 2));
+
+            }
+
+        });
+
+        tablaRaideos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                KeyEvent ke = new KeyEvent(tablaRaideos, KeyEvent.KEY_RELEASED, 1, 0, KeyEvent.VK_UNDEFINED, 'a');
+                tablaRaideos.dispatchEvent(ke);
             }
         });
 
@@ -144,14 +182,15 @@ public class Panel extends javax.swing.JFrame {
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jTtribu1 = new javax.swing.JTextField();
+        jTtribuRaid = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jTbase1 = new javax.swing.JTextField();
+        jTbaseRaid = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTAjugadores1 = new javax.swing.JTextArea();
+        jTAjugadoresRaid = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        jTclavetribu1 = new javax.swing.JTextField();
+        jTclavetribuRaid = new javax.swing.JTextField();
+        jBborrarRaid = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -205,7 +244,6 @@ public class Panel extends javax.swing.JFrame {
         jTclave.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jTclave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTclave.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTclave.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 3, 8)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 102));
@@ -448,22 +486,29 @@ public class Panel extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Almacenamiento", jPanel2);
 
+        jPanel4.setBackground(new java.awt.Color(102, 255, 255));
+
         jLabel12.setText("Tribu");
+
+        jTtribuRaid.setEnabled(false);
 
         jLabel13.setText("Base Raideo");
 
+        jTbaseRaid.setEnabled(false);
+
         jLabel14.setText("Jugadores");
 
-        jTAjugadores1.setColumns(20);
-        jTAjugadores1.setRows(5);
-        jScrollPane4.setViewportView(jTAjugadores1);
+        jTAjugadoresRaid.setColumns(20);
+        jTAjugadoresRaid.setRows(5);
+        jTAjugadoresRaid.setEnabled(false);
+        jScrollPane4.setViewportView(jTAjugadoresRaid);
 
         jLabel7.setText("Clave");
 
-        jTclavetribu1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jTclavetribu1.setForeground(new java.awt.Color(0, 0, 0));
-        jTclavetribu1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTclavetribu1.setEnabled(false);
+        jTclavetribuRaid.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jTclavetribuRaid.setForeground(new java.awt.Color(0, 0, 0));
+        jTclavetribuRaid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTclavetribuRaid.setEnabled(false);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -489,12 +534,12 @@ public class Panel extends javax.swing.JFrame {
                                         .addComponent(jLabel14))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addContainerGap()
-                                        .addComponent(jTclavetribu1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jTclavetribuRaid, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(9, 9, 9)))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jTbase1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                            .addComponent(jTtribu1))))
+                            .addComponent(jTbaseRaid, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                            .addComponent(jTtribuRaid))))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -503,11 +548,11 @@ public class Panel extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTtribu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTtribuRaid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTbase1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTbaseRaid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -515,13 +560,20 @@ public class Panel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTclavetribu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTclavetribuRaid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                 .addGap(68, 68, 68))
         );
 
         jTabbedPane3.addTab("Tribu", jPanel5);
+
+        jBborrarRaid.setText("Borrar");
+        jBborrarRaid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBborrarRaidActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -533,6 +585,10 @@ public class Panel extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addComponent(jBborrarRaid)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -541,7 +597,9 @@ public class Panel extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollRaideos, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBborrarRaid)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Raideos", jPanel4);
@@ -777,6 +835,17 @@ public class Panel extends javax.swing.JFrame {
             }
 
             mapaRaideo.put(mapaRaideo.size() + 1, raid);
+            DefaultTableModel dtm2 = (DefaultTableModel) tablaRaideos.getModel();
+            tablaRaideos = new JTable(dtm2);
+
+            Object[] etiquetas = new Object[4];
+            etiquetas[0] = mapaRaideo.size();
+            etiquetas[1] = raid.getTribu();
+            etiquetas[2] = raid.getBase();
+            etiquetas[3] = raid.getFecha();
+            dtm2.addRow(jugadores);
+
+            tablaRaideos.setModel(dtm2);
 
             JOptionPane.showMessageDialog(this, "Datos Insertados Correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
@@ -784,6 +853,23 @@ public class Panel extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Faltan Datos en alguno de los campos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBguardarDatosActionPerformed
+
+    private void jBborrarRaidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBborrarRaidActionPerformed
+        DefaultTableModel dtm = (DefaultTableModel) tablaRaideos.getModel();
+        if (tablaRaideos.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "No hay ninguna fila seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int id = (int) dtm.getValueAt(tablaRaideos.getSelectedRow(), 0);
+            dtm.removeRow(tablaRaideos.getSelectedRow());
+            jTclavetribuRaid.setText("");
+            jTtribuRaid.setText("");
+            jTbaseRaid.setText("");
+            jTAjugadoresRaid.setText("");
+            mapaRaideo.remove(id);
+
+            JOptionPane.showMessageDialog(this, "Fila borrada correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jBborrarRaidActionPerformed
 
     public int aleatorio(int min, int max) {
         double alea;
@@ -852,7 +938,6 @@ public class Panel extends javax.swing.JFrame {
                 etiquetas[2] = entry.getValue().getBase();
                 etiquetas[3] = entry.getValue().getFecha();
                 dtm.addRow(etiquetas);
-
             }
         }
 
@@ -976,6 +1061,7 @@ public class Panel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBborrar;
+    private javax.swing.JButton jBborrarRaid;
     private javax.swing.JButton jBgenerar;
     private javax.swing.JButton jBguardar;
     private javax.swing.JButton jBguardarDatos;
@@ -1005,19 +1091,19 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollRaideos;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextArea jTAjugadores;
-    private javax.swing.JTextArea jTAjugadores1;
+    private javax.swing.JTextArea jTAjugadoresRaid;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTextField jTbase;
-    private javax.swing.JTextField jTbase1;
+    private javax.swing.JTextField jTbaseRaid;
     private javax.swing.JTextField jTclave;
     private javax.swing.JTextField jTclavetribu;
-    private javax.swing.JTextField jTclavetribu1;
+    private javax.swing.JTextField jTclavetribuRaid;
     private javax.swing.JTextField jTdigitos;
     private javax.swing.JTextField jTletras;
     private javax.swing.JTextField jTnumeros;
     private javax.swing.JTextField jTtribu;
-    private javax.swing.JTextField jTtribu1;
+    private javax.swing.JTextField jTtribuRaid;
     // End of variables declaration//GEN-END:variables
 }
