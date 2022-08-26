@@ -822,9 +822,16 @@ public class Panel extends javax.swing.JFrame {
                     if(val1.getIdclave()==key){
                         val1.setIdclave(mapaclaves2.size());
                     }
+                    else if(val1.getIdclave()==id){
+                        mapaRaideo.remove(key1);
+                    }
                     
                 }
                 
+            }
+            
+            if(mapaclaves.isEmpty()){
+                mapaRaideo.clear();
             }
             
             mapaclaves.clear();
@@ -858,7 +865,12 @@ public class Panel extends javax.swing.JFrame {
                 raid.anyadirjugador(jugadore);
             }
 
-            mapaRaideo.put(mapaRaideo.size() + 1, raid);
+            if(mapaRaideo.isEmpty()){
+                mapaRaideo.put(1, raid);
+            }else{
+                mapaRaideo.put(mapaRaideo.size() + 1, raid);
+            }
+
             DefaultTableModel dtm2 = (DefaultTableModel) tablaRaideos.getModel();
             tablaRaideos = new JTable(dtm2);
 
@@ -1007,7 +1019,7 @@ public class Panel extends javax.swing.JFrame {
                 while ((linea = bf.readLine()) != null) {
                     datos = linea.split(";");
                     id = Integer.parseInt(datos[0]);
-                    idclave = id = Integer.parseInt(datos[1]);
+                    idclave =Integer.parseInt(datos[1]);
                     fecha = datos[2];
                     base = datos[3];
                     tribu = datos[4];
@@ -1055,7 +1067,7 @@ public class Panel extends javax.swing.JFrame {
             for (Map.Entry<Integer, Raideo> entry : mapaRaideo.entrySet()) {
                 Integer key = entry.getKey();
                 Raideo val = entry.getValue();
-
+                //key;idClave;fecha;tribu;base;keyJugador:Jugador-keyJugador2-Jugador2      
                 listado += String.valueOf(key) + ";" + val.getIdclave() + ";" + val.getFecha() + ";" + val.getTribu() + ";" + val.getBase() + ";";
                 jugadores = "";
                 for (Map.Entry<Integer, String> entry1 : val.getJugadores().entrySet()) {
