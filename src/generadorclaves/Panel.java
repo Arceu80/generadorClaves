@@ -806,6 +806,30 @@ public class Panel extends javax.swing.JFrame {
             int id = (int) dtm.getValueAt(tablaClaves.getSelectedRow(), 0);
             dtm.removeRow(tablaClaves.getSelectedRow());
             mapaclaves.remove(id);
+            
+            HashMap<Integer, String> mapaclaves2 = new HashMap();
+            
+            for (Map.Entry<Integer, String> entry : mapaclaves.entrySet()) {
+                Integer key = entry.getKey();
+                String val = entry.getValue();
+                
+                mapaclaves2.put(mapaclaves2.size()+1, val);
+                
+                for (Map.Entry<Integer, Raideo> entry1 : mapaRaideo.entrySet()) {
+                    Integer key1 = entry1.getKey();
+                    Raideo val1 = entry1.getValue();
+                    
+                    if(val1.getIdclave()==key){
+                        val1.setIdclave(mapaclaves2.size());
+                    }
+                    
+                }
+                
+            }
+            
+            mapaclaves.clear();
+            mapaclaves.putAll(mapaclaves2);
+            
             JOptionPane.showMessageDialog(this, "Fila borrada correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
 
@@ -843,7 +867,7 @@ public class Panel extends javax.swing.JFrame {
             etiquetas[1] = raid.getTribu();
             etiquetas[2] = raid.getBase();
             etiquetas[3] = raid.getFecha();
-            dtm2.addRow(jugadores);
+            dtm2.addRow(etiquetas);
 
             tablaRaideos.setModel(dtm2);
 
