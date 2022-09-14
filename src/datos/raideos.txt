@@ -1,0 +1,29 @@
+1;1;29/08/2022:17:58:59;El Capo;Oficial 3;1:Lilo
+2;1;29/08/2022:18:15:38;Primitivo 1 al 5;Los Reporteros;1:Argonm-2:Pablo-3:Parrula-4:Peperino-5:Raul
+3;2;30/08/2022:18:44:09;Patitos del Caribe;Ofical 1;1:ErTitoJuan-2:Sterlicia-3:Azote
+4;2;30/08/2022:18:44:43;Belloteros;Primitiva 1;1:Tetedas-2:Panaderix
+5;2;30/08/2022:19:31:06;Los acaparadores;Oficial 3;1:Argonm-2:Pablo-3:Parrula-4:Peperino-5:Raultipe-6:Rubenxenxo
+6;2;30/08/2022:20:26:22;ChilliSecta;Primitiva 2;1:Nrogara-2:Strkllr
+7;3;31/08/2022:18:05:28;Belloteros;Primitiva 3;1:Tetedas-2:Panaderix
+8;3;31/08/2022:19:28:23;Patitos del Caribe;Oficial 2;1:ErTitoJuan-2:Sterlicia-3:Azote
+9;4;02/09/2022:13:06:36;Primitiva 1;El Capo;1:Lilo
+10;5;02/09/2022:16:43:20;Los Acaparadores;Oficial 1;1:Argonm-2:Parrula-3:Adryscao-4:MasterPablo-5:Raultipe-6:Peperino-7:Rubenxenxo
+11;5;02/09/2022:17:10:44;Primitiva 2;El Capo;1:Lilo
+12;6;03/09/2022:14:28:52;Patitos del Caribe;Ascendente 1;1:Azote-2:Sterlicia-3:ertitoJuan
+13;6;03/09/2022:14:30:34;Caballero Hippie Colgao;Primitva 4 y 5;1:dani-2:mistico-3:pedro-4:borja
+14;6;03/09/2022:16:31:55;Oficial 2;ChilliSecta;1:strkllr-2:Nrogara
+15;6;03/09/2022:21:09:41;Henanos Herreros;Alpha 1;1:Kawa-2:Vali
+16;6;04/09/2022:10:49:02;Primitiva 3;Trio Calavera;1:Dani-2:Pedro-3:Lilo
+17;7;05/09/2022:17:39:43;Ascendente 1;Acaparadores;1:Pablo-2:Argonm-3:Parrula-4:Peperino-5:Raul-6:Ruben
+18;7;05/09/2022:17:40:39;Primitiva 1;ChilliSecta;1:PabNrogara-2:Strkllr0
+19;8;07/09/2022:21:12:46;El Capo;Prmitiva 4;1:Lilo
+20;8;07/09/2022:21:13:44;ChilliSecta;Primitiva 2;1:strkllr-2:nrogara
+21;8;09/09/2022:08:58:27;Primitiva 5;Rockcampers;1:Reximusly-2:chato 1295
+22;9;09/09/2022:18:40:52;El Capo;Primitiva 5;1:Lilo
+23;9;09/09/2022:18:43:37;Oficial 3;Patitos del Caribe;1:Sterlicia-2:erTitoJuan-3:Azote
+24;10;10/09/2022:15:14:02;Patitos del Caribe;Ascendente 2;1:Sterlicia-2:Azote-3:erTitoJuan-4:Parrula-5:Raul-6:Pablo-7:Ruben-8:Peperino-9:Argonm
+25;10;10/09/2022:15:14:26;El Capo;Oficial 1;1:Lilo
+26;11;11/09/2022:17:13:12;Dani;Oficial 2;1:Dani-2:Pedro
+27;11;11/09/2022:17:23:46;Topitos Acaparadores;Alpha 1;1:Argonm-2:Azote-3:Parrula-4:Raultipe-5:Sterlicia-6:erTitoJuan-7:Ruben-8:Pablo
+28;11;11/09/2022:17:24:21;Dioses Españoles;Primitva 4;1:Huchete-2:La Sapa
+29;12;14/09/2022:17:12:35;Primitiva 5;Rockcampers;1:luuis1295

@@ -134,6 +134,10 @@ public class Panel extends javax.swing.JFrame {
                 tablaRaideos.dispatchEvent(ke);
             }
         });
+        
+        tablaRaideos.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tablaRaideos.getColumnModel().getColumn(1).setPreferredWidth(30);
+        tablaRaideos.getColumnModel().getColumn(2).setPreferredWidth(30);
 
     }
 
@@ -581,8 +585,8 @@ public class Panel extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollRaideos, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jScrollRaideos, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
             .addGroup(jPanel4Layout.createSequentialGroup()
@@ -853,7 +857,7 @@ public class Panel extends javax.swing.JFrame {
             int idclave = (int) dtm.getValueAt(tablaClaves.getSelectedRow(), 0);
             String tribu = jTtribu.getText();
             String base = jTbase.getText();
-            SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss");
             Calendar calendar = Calendar.getInstance();
             Date dateObj = calendar.getTime();
             String formattedDate = dtf.format(dateObj);
