@@ -27,3 +27,9 @@
 27;11;11/09/2022:17:23:46;Topitos Acaparadores;Alpha 1;1:Argonm-2:Azote-3:Parrula-4:Raultipe-5:Sterlicia-6:erTitoJuan-7:Ruben-8:Pablo
 28;11;11/09/2022:17:24:21;Dioses Españoles;Primitva 4;1:Huchete-2:La Sapa
 29;12;14/09/2022:17:12:35;Primitiva 5;Rockcampers;1:luuis1295
+30;13;17/09/2022:18:47:06;Topitos Acaparadores;Alpha 2;1:Argonm-2:Pablo-3:Parrula-4:Raultipe-5:Peperino-6:Rubenxenxo-7:Azote-8:Legion-9:Sterlicia
+31;13;17/09/2022:18:47:29;Espera;Oficial;1:Dani-2:Luzero-3:Mistico
+32;14;24/09/2022:18:25:49;Oficial 3;Dani;1:Dani-2:Luzero-3:Mistico
+33;15;26/09/2022:21:44:02;Rockcampers;oficial 5;1:luuis1295
+34;16;29/09/2022:21:06:18;Oficial4;RockCampers;1:luuis1295
+35;17;30/09/2022:18:30:11;Dani;Primitivas;1:Dani-2:Luzero
